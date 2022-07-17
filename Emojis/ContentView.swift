@@ -19,8 +19,15 @@ struct ContentView: View {
         VStack(alignment: .leading,spacing: 30){
             ForEach(emojis){ emoji in
                 EmojiView(emoji: emoji)
+                    .onTapGesture {
+                        save(emoji)
+                    }
             }
         }
+    }
+    
+    private func save(_ emoji: Emoji){
+        print("saved Emoji: \(emoji)")
     }
 }
 
