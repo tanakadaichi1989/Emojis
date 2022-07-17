@@ -8,6 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    let emojis = [
+        Emoji(icon: "😃", name: "大きい目の笑顔", description: "grinning face with big eyes"),
+        Emoji(icon: "🏂", name: "スノーボーダー", description: "snowboarder"),
+        Emoji(icon: "🦄", name: "ユニコーン", description: "unicorn")
+    ]
+    
     var body: some View {
         Text("Hello, world!")
             .padding()
