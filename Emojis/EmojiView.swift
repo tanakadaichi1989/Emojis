@@ -10,20 +10,11 @@ import SwiftUI
 struct EmojiView: View {
     let emoji: Emoji
     var body: some View {
-        HStack {
-            Text(emoji.icon)
-                .font(.largeTitle)
-                .padding()
-                .background(Color.purple)
+        Text(emoji.icon)
+            .font(.largeTitle)
+            .padding()
+            .background(Color.purple)
             .clipShape(Circle())
-            VStack(alignment: .leading) {
-                Text(emoji.name)
-                    .font(.title)
-                    .fontWeight(.black)
-                Text(emoji.description)
-                    .font(.subheadline)
-            }
-        }
     }
 }
 

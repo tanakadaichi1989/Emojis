@@ -9,6 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @AppStorage("emoji", store: UserDefaults(suiteName: "group.Sample.Emojis"))
+    var emojiData: Data = Data()
+    
     let emojis = [
         Emoji(icon: "😃", name: "大きい目の笑顔", description: "grinning face with big eyes"),
         Emoji(icon: "🏂", name: "スノーボーダー", description: "snowboarder"),
@@ -27,6 +30,8 @@ struct ContentView: View {
     }
     
     private func save(_ emoji: Emoji){
+        guard let emojiData = try? JSONEncoder().encode(emoji) else { return }
+        self.emojiData = emojiData
         print("saved Emoji: \(emoji)")
     }
 }
