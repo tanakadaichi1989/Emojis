@@ -10,38 +10,36 @@ import SwiftUI
 import Intents
 
 struct Provider: IntentTimelineProvider {
-    func placeholder(in context: Context) -> EmojiEntry {
-        EmojiEntry(date: Date(), emoji: Emoji(icon: "💛", name: "N/A", description: "N/A"))
-    }
-    
     @AppStorage("emoji", store: UserDefaults(suiteName: "group.Sample.Emojis"))
     var emojiData: Data = Data()
+    
+    func placeholder(in context: Context) -> SimpleEntry {
+        guard let emoji = try? JSONDecoder().decode(Emoji.self,from: emojiData) else {
+            return SimpleEntry(date: Date(), emoji: Emoji(icon: "💛", name: "N/A", description: "N/A"))
+        }
+        return SimpleEntry(date: Date(), emoji: emoji)
+    }
+  
 
-    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (EmojiEntry) -> ()) {
+    func getSnapshot(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         guard let emoji = try? JSONDecoder().decode(Emoji.self,from: emojiData) else { return }
-        let entry = EmojiEntry(date: Date(), emoji: emoji)
+        let entry = SimpleEntry(date: Date(), emoji: emoji)
         completion(entry)
     }
 
     func getTimeline(for configuration: ConfigurationIntent, in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         guard let emoji = try? JSONDecoder().decode(Emoji.self,from: emojiData) else { return }
-        
-        var entries: [EmojiEntry] = []
+        var entries: [SimpleEntry] = []
 
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = EmojiEntry(date: entryDate, emoji: emoji)
-            entries.append(entry)
-        }
+        let entry = SimpleEntry(date: Date(), emoji: emoji)
+        entries.append(entry)
 
-        let timeline = Timeline(entries: entries, policy: .atEnd)
+        let timeline = Timeline(entries: entries, policy: .never)
         completion(timeline)
     }
 }
 
-struct EmojiEntry: TimelineEntry {
+struct SimpleEntry: TimelineEntry {
     let date: Date
     let emoji: Emoji
 }
@@ -53,7 +51,6 @@ struct EmojisWidgetEntryView : View {
         EmojiView(emoji: entry.emoji)
     }
 }
-
 
 @main
 struct EmojisWidget: Widget {
@@ -70,7 +67,8 @@ struct EmojisWidget: Widget {
 
 struct EmojisWidget_Previews: PreviewProvider {
     static var previews: some View {
-        EmojisWidgetEntryView(entry: EmojiEntry(date: Date(), emoji: Emoji(icon: "💛", name: "N/A", description: "N/A")))
+        EmojisWidgetEntryView(entry: SimpleEntry(date: Date(), emoji: Emoji(icon: "💛", name: "N/A", description: "N/A")))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
+

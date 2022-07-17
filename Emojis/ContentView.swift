@@ -33,6 +33,7 @@ struct ContentView: View {
         guard let emojiData = try? JSONEncoder().encode(emoji) else { return }
         self.emojiData = emojiData
         print("saved Emoji: \(emoji)")
+        print(dump(emoji))
     }
 }
 
