@@ -15,6 +15,7 @@
 		A1064733288445A5001E5B3F /* EmojisUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1064732288445A5001E5B3F /* EmojisUITests.swift */; };
 		A1064735288445A5001E5B3F /* EmojisUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1064734288445A5001E5B3F /* EmojisUITestsLaunchTests.swift */; };
 		A106474228844606001E5B3F /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = A106474128844606001E5B3F /* Emoji.swift */; };
+		A10647442884483C001E5B3F /* EmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10647432884483C001E5B3F /* EmojiView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		A1064732288445A5001E5B3F /* EmojisUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojisUITests.swift; sourceTree = "<group>"; };
 		A1064734288445A5001E5B3F /* EmojisUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojisUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A106474128844606001E5B3F /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
+		A10647432884483C001E5B3F /* EmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			children = (
 				A1064717288445A2001E5B3F /* EmojisApp.swift */,
 				A1064719288445A2001E5B3F /* ContentView.swift */,
+				A10647432884483C001E5B3F /* EmojiView.swift */,
 				A106474128844606001E5B3F /* Emoji.swift */,
 				A106471B288445A5001E5B3F /* Assets.xcassets */,
 				A106471D288445A5001E5B3F /* Preview Content */,
@@ -261,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A106474228844606001E5B3F /* Emoji.swift in Sources */,
+				A10647442884483C001E5B3F /* EmojiView.swift in Sources */,
 				A106471A288445A2001E5B3F /* ContentView.swift in Sources */,
 				A1064718288445A2001E5B3F /* EmojisApp.swift in Sources */,
 			);
