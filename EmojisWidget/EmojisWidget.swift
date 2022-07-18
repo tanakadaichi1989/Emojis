@@ -7,7 +7,6 @@
 
 import WidgetKit
 import SwiftUI
-import Intents
 
 struct Provider: TimelineProvider {
     
@@ -19,8 +18,9 @@ struct Provider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
         let userDefaults = UserDefaults(suiteName: "group.sample.Emojis")!
         let date = Date()
-        let emoji = userDefaults.string(forKey: "Emoji") ?? "💛"
-        let entry = SimpleEntry(date: date, emoji: Emoji(icon: emoji, name: "N/A", description: "N/A"))
+        let emojiData = userDefaults.object(forKey: "Emoji") ?? Data()
+        let emoji = try! JSONDecoder().decode(Emoji.self,from: emojiData as! Data) 
+        let entry = SimpleEntry(date: date, emoji: emoji)
         let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)
     }
@@ -41,6 +41,9 @@ struct EmojisWidgetEntryView : View {
     var body: some View {
         VStack {
             EmojiView(emoji: entry.emoji)
+            Text(entry.emoji.description)
+                .font(.subheadline)
+                .foregroundColor(.gray)
         }
     }
 }
