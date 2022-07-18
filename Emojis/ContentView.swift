@@ -6,11 +6,10 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct ContentView: View {
-    
-    @AppStorage("emoji", store: UserDefaults(suiteName: "group.Sample.Emojis"))
-    var emojiData: Data = Data()
+    @AppStorage("emojiData") var emojiData: Data = Data()
     
     let emojis = [
         Emoji(icon: "😃", name: "大きい目の笑顔", description: "grinning face with big eyes"),
@@ -24,16 +23,16 @@ struct ContentView: View {
                 EmojiView(emoji: emoji)
                     .onTapGesture {
                         save(emoji)
+                        WidgetCenter.shared.reloadAllTimelines()
                     }
             }
         }
     }
     
     private func save(_ emoji: Emoji){
-        guard let emojiData = try? JSONEncoder().encode(emoji) else { return }
-        self.emojiData = emojiData
+        let userDefaults = UserDefaults(suiteName: "group.sample.Emojis")!
+        userDefaults.set(emoji.icon, forKey: "Emoji")
         print("saved Emoji: \(emoji)")
-        print(dump(emoji))
     }
 }
 
