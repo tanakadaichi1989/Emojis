@@ -11,9 +11,9 @@ import WidgetKit
 struct ContentView: View {
     
     let emojis = [
-        Emoji(icon: "😃", name: "大きい目の笑顔", description: "grinning face with big eyes"),
-        Emoji(icon: "🏂", name: "スノーボーダー", description: "snowboarder"),
-        Emoji(icon: "🦄", name: "ユニコーン", description: "unicorn")
+        Emoji(icon: "😃", name: "大きい目の笑顔", description: "Grinning face with big eyes"),
+        Emoji(icon: "🏂", name: "スノーボーダー", description: "Snowboarder"),
+        Emoji(icon: "🦄", name: "ユニコーン", description: "Unicorn")
     ]
     
     var body: some View {
@@ -30,7 +30,7 @@ struct ContentView: View {
     
     private func save(_ emoji: Emoji){
         let userDefaults = UserDefaults(suiteName: "group.sample.Emojis")!
-        let emojiData = try! JSONEncoder().encode(emoji)
+        guard let emojiData = try? JSONEncoder().encode(emoji) else { return }
         userDefaults.set(emojiData, forKey: "Emoji")
         print("saved Emoji: \(emoji)")
     }
