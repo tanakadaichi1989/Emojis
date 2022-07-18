@@ -41,14 +41,51 @@ struct SimpleEntry: TimelineEntry {
 }
 
 struct EmojisWidgetEntryView : View {
+    @Environment(\.widgetFamily) var family: WidgetFamily
+    
     var entry: Provider.Entry
 
     var body: some View {
-        VStack {
-            EmojiView(emoji: entry.emoji)
-            Text(entry.emoji.description)
-                .font(.subheadline)
-                .foregroundColor(.gray)
+        switch family {
+        case .systemSmall:
+            EmojisWidgetSmallView(emoji: entry.emoji)
+        case .systemMedium:
+            EmojisWidgetMediumView(emoji: entry.emoji)
+        case .systemLarge:
+            EmojisWidgetLargeView(emoji: entry.emoji)
+        case .systemExtraLarge:
+            EmojisWidgetLargeView(emoji: entry.emoji)
+        }
+            
+    }
+}
+
+struct EmojisWidgetSmallView : View {
+    var emoji: Emoji
+    var body: some View {
+        EmojiView(emoji: emoji)
+    }
+}
+
+struct EmojisWidgetMediumView : View {
+    var emoji: Emoji
+    var body: some View {
+        HStack {
+            EmojiView(emoji: emoji)
+            Text(emoji.name)
+        }
+    }
+}
+
+struct EmojisWidgetLargeView : View {
+    var emoji: Emoji
+    var body: some View {
+        HStack {
+            EmojiView(emoji: emoji)
+            VStack(alignment: .leading){
+                Text(emoji.name)
+                Text(emoji.description)
+            }
         }
     }
 }
@@ -63,6 +100,7 @@ struct EmojisWidget: Widget {
         }
         .configurationDisplayName("Emojis Widget")
         .description("This is an example widget.")
+        .supportedFamilies([.systemSmall,.systemMedium,.systemLarge,.systemExtraLarge])
     }
 }
 
