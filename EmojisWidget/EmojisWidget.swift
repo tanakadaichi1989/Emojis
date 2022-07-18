@@ -19,7 +19,12 @@ struct Provider: TimelineProvider {
         let userDefaults = UserDefaults(suiteName: "group.sample.Emojis")!
         let date = Date()
         let emojiData = userDefaults.object(forKey: "Emoji") ?? Data()
-        let emoji = try! JSONDecoder().decode(Emoji.self,from: emojiData as! Data) 
+        guard let emoji = try? JSONDecoder().decode(Emoji.self,from: emojiData as! Data) else {
+            let entry = SimpleEntry(date: date, emoji: Emoji(icon: "💛", name: "N/A", description: "N/A"))
+            let timeline = Timeline(entries: [entry], policy: .never)
+            completion(timeline)
+            return
+        }
         let entry = SimpleEntry(date: date, emoji: emoji)
         let timeline = Timeline(entries: [entry], policy: .never)
         completion(timeline)
