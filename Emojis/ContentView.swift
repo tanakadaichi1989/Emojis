@@ -30,7 +30,8 @@ struct ContentView: View {
     
     private func save(_ emoji: Emoji){
         let userDefaults = UserDefaults(suiteName: "group.sample.Emojis")!
-        userDefaults.set(emoji.icon, forKey: "Emoji")
+        let emojiData = try! JSONEncoder().encode(emoji)
+        userDefaults.set(emojiData, forKey: "Emoji")
         print("saved Emoji: \(emoji)")
     }
 }
