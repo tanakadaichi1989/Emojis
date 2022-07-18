@@ -9,7 +9,6 @@ import SwiftUI
 import WidgetKit
 
 struct ContentView: View {
-    @AppStorage("emojiData") var emojiData: Data = Data()
     
     let emojis = [
         Emoji(icon: "😃", name: "大きい目の笑顔", description: "grinning face with big eyes"),
