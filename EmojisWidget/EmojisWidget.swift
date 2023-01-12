@@ -41,22 +41,13 @@ struct SimpleEntry: TimelineEntry {
 }
 
 struct EmojisWidgetEntryView : View {
+    
     @Environment(\.widgetFamily) var family: WidgetFamily
     
     var entry: Provider.Entry
 
     var body: some View {
-        switch family {
-        case .systemSmall:
-            EmojisWidgetSmallView(emoji: entry.emoji)
-        case .systemMedium:
-            EmojisWidgetMediumView(emoji: entry.emoji)
-        case .systemLarge:
-            EmojisWidgetLargeView(emoji: entry.emoji)
-        case .systemExtraLarge:
-            EmojisWidgetLargeView(emoji: entry.emoji)
-        }
-            
+        EmojisWidgetSmallView(emoji: entry.emoji)
     }
 }
 
